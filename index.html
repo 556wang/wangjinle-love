@@ -240,6 +240,12 @@ body{
     bottom:15px;
     font-size:0.9rem;
     color:rgba(255,255,255,0.6);
+    cursor:pointer;
+    z-index:100;
+}
+
+.music-tip:hover{
+    color:rgba(255,255,255,0.9);
 }
 
 @media(max-width:768px){
@@ -383,13 +389,13 @@ body{
 
 </section>
 
-<div class="music-tip">
-    建议打开声音 ♪
+<div class="music-tip" id="musicTip">
+    点击启用音乐 ♪
 </div>
 
 <!-- 背景音乐 -->
-<audio id="bgMusic" loop>
-    <source src="music.mp3" type="audio/mp3">
+<audio id="bgMusic" preload="auto">
+    <source src="music.mp3" type="audio/mpeg">
 </audio>
 
 <script>
@@ -470,19 +476,54 @@ function updateLoveTime(){
 setInterval(updateLoveTime,1000);
 updateLoveTime();
 
-/* 背景音乐自动播放 */
+/* 背景音乐控制 */
 
 const bgMusic = document.getElementById('bgMusic');
+const musicTip = document.getElementById('musicTip');
+let isPlaying = false;
 
-// 在用户第一次交互后自动播放音乐
-document.addEventListener('click', function playAudio() {
-    bgMusic.play().catch(err => console.log('音乐播放失败:', err));
-    document.removeEventListener('click', playAudio);
+// 点击提示文字启动音乐
+musicTip.addEventListener('click', function() {
+    if (!isPlaying) {
+        bgMusic.play().then(() => {
+            isPlaying = true;
+            musicTip.textContent = '音乐播放中 ♪';
+        }).catch(err => {
+            console.log('音乐播放失败:', err);
+            musicTip.textContent = '音乐加载失败，请检查文件 ✗';
+        });
+    } else {
+        bgMusic.pause();
+        isPlaying = false;
+        musicTip.textContent = '点击启用音乐 ♪';
+    }
+});
+
+// 在用户交互后自动播放
+document.addEventListener('click', function autoPlay() {
+    if (!isPlaying) {
+        bgMusic.play().then(() => {
+            isPlaying = true;
+            musicTip.textContent = '音乐播放中 ♪';
+        }).catch(err => console.log('自动播放被浏览器限制'));
+    }
+    document.removeEventListener('click', autoPlay);
 }, { once: true });
 
-// 也尝试在页面加载完成后自动播放
-window.addEventListener('load', function() {
-    bgMusic.play().catch(err => console.log('自动播放被浏览器阻止'));
+// 监听音乐播放状态
+bgMusic.addEventListener('play', () => {
+    isPlaying = true;
+    musicTip.textContent = '音乐播放中 ♪';
+});
+
+bgMusic.addEventListener('pause', () => {
+    isPlaying = false;
+    musicTip.textContent = '点击启用音乐 ♪';
+});
+
+bgMusic.addEventListener('error', () => {
+    console.log('音乐文件加载失败');
+    musicTip.textContent = '音乐加载失败 ✗';
 });
 
 </script>
