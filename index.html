@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>张晓航 ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:'Noto Serif SC',serif;
+    background:#090015;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* 星空背景 */
+
+.stars{
+    position:fixed;
+    width:100%;
+    height:100%;
+    top:0;
+    left:0;
+    z-index:-1;
+}
+
+.star{
+    position:absolute;
+    width:2px;
+    height:2px;
+    background:white;
+    border-radius:50%;
+    animation:twinkle 3s infinite ease-in-out;
+}
+
+@keyframes twinkle{
+    0%,100%{opacity:0.2;}
+    50%{opacity:1;}
+}
+
+/* 首页 */
+
+.hero{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+    background:radial-gradient(circle at top,#2b1055,#090015 70%);
+}
+
+.hero h1{
+    font-size:5rem;
+    margin-bottom:20px;
+    color:#ffd2e5;
+    animation:float 4s ease-in-out infinite;
+}
+
+.hero p{
+    font-size:1.4rem;
+    line-height:2.2;
+    color:rgba(255,255,255,0.85);
+    max-width:850px;
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0px);}
+    50%{transform:translateY(-10px);}
+}
+
+.enter-btn{
+    margin-top:40px;
+    padding:16px 40px;
+    border:none;
+    border-radius:50px;
+    background:#ffd2e5;
+    color:#6b1044;
+    font-size:1.1rem;
+    cursor:pointer;
+    transition:0.4s;
+}
+
+.enter-btn:hover{
+    transform:scale(1.08);
+}
+
+/* 通用区域 */
+
+.section{
+    padding:100px 20px;
+    text-align:center;
+}
+
+.section-title{
+    font-size:3rem;
+    margin-bottom:50px;
+    color:#ffd2e5;
+}
+
+/* 照片墙 */
+
+.photos{
+    display:flex;
+    justify-content:center;
+    flex-wrap:wrap;
+    gap:25px;
+}
+
+.photos img{
+    width:260px;
+    height:360px;
+    object-fit:cover;
+    border-radius:25px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.45);
+    transition:0.5s;
+    border:2px solid rgba(255,255,255,0.15);
+}
+
+.photos img:hover{
+    transform:translateY(-10px) scale(1.03);
+}
+
+/* 时间轴 */
+
+.timeline{
+    max-width:800px;
+    margin:auto;
+    text-align:left;
+}
+
+.timeline-item{
+    margin-bottom:40px;
+    padding:25px;
+    background:rgba(255,255,255,0.05);
+    border-radius:20px;
+    backdrop-filter:blur(5px);
+}
+
+.timeline-item h3{
+    margin-bottom:10px;
+    color:#ffd2e5;
+}
+
+.timeline-item p{
+    line-height:1.9;
+    color:rgba(255,255,255,0.8);
+}
+
+/* 计时器 */
+
+.counter{
+    font-size:2rem;
+    line-height:2;
+    color:#fff;
+}
+
+.highlight{
+    color:#ffb7d5;
+    font-size:2.5rem;
+}
+
+/* 最终告白 */
+
+.final-love{
+    min-height:80vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    padding:20px;
+}
+
+.final-love h2{
+    font-size:4rem;
+    color:#ffd2e5;
+    margin-bottom:30px;
+}
+
+.final-love p{
+    max-width:900px;
+    line-height:2.4;
+    font-size:1.4rem;
+    color:rgba(255,255,255,0.9);
+}
+
+.big-love{
+    margin-top:50px;
+    font-size:5rem;
+    color:#ff8fc7;
+    animation:pulse 2s infinite;
+}
+
+@keyframes pulse{
+    0%,100%{
+        transform:scale(1);
+    }
+    50%{
+        transform:scale(1.05);
+    }
+}
+
+/* 爱心 */
+
+.heart{
+    position:fixed;
+    color:#ff8fc7;
+    pointer-events:none;
+    animation:fall linear forwards;
+}
+
+@keyframes fall{
+    from{
+        transform:translateY(-10vh);
+        opacity:1;
+    }
+    to{
+        transform:translateY(110vh);
+        opacity:0;
+    }
+}
+
+.music-tip{
+    position:fixed;
+    right:15px;
+    bottom:15px;
+    font-size:0.9rem;
+    color:rgba(255,255,255,0.6);
+}
+
+@media(max-width:768px){
+
+    .hero h1{
+        font-size:3rem;
+    }
+
+    .hero p,
+    .final-love p{
+        font-size:1.1rem;
+    }
+
+    .section-title{
+        font-size:2.2rem;
+    }
+
+    .big-love{
+        font-size:3rem;
+    }
+
+    .photos img{
+        width:90%;
+        height:auto;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- 星空 -->
+<div class="stars" id="stars"></div>
+
+<!-- 首页 -->
+<section class="hero">
+
+    <h1>张晓航 ❤️</h1>
+
+    <p>
+        有些人出现，
+        是为了惊艳时光。
+        <br><br>
+        而你不是。
+        <br><br>
+        你是让我想陪很久很久的人。
+    </p>
+
+    <button class="enter-btn" onclick="document.getElementById('memory').scrollIntoView()">
+        开启我们的故事
+    </button>
+
+</section>
+
+<!-- 照片墙 -->
+<section class="section" id="memory">
+
+    <h2 class="section-title">我们的回忆</h2>
+
+    <div class="photos">
+
+        <img src="1.jpg">
+        <img src="2.jpg">
+        <img src="3.jpg">
+        <img src="4.jpg">
+
+    </div>
+
+</section>
+
+<!-- 时间轴 -->
+<section class="section">
+
+    <h2 class="section-title">关于我们</h2>
+
+    <div class="timeline">
+
+        <div class="timeline-item">
+            <h3>第一次遇见</h3>
+            <p>
+                从那一天开始，
+                世界突然变得温柔了很多。
+            </p>
+        </div>
+
+        <div class="timeline-item">
+            <h3>第一次心动</h3>
+            <p>
+                我开始期待你的消息，
+                开始记住你的喜好，
+                开始想和你分享每天发生的一切。
+            </p>
+        </div>
+
+        <div class="timeline-item">
+            <h3>直到现在</h3>
+            <p>
+                我越来越确定，
+                你就是我想认真喜欢、认真陪伴的人。
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+<!-- 恋爱计时器 -->
+<section class="section">
+
+    <h2 class="section-title">已经陪伴了</h2>
+
+    <div class="counter" id="loveTime"></div>
+
+</section>
+
+<!-- 最终告白 -->
+<section class="final-love">
+
+    <h2>写给张晓航</h2>
+
+    <p>
+        遇见你以后，
+        我开始觉得普通的日子也会闪闪发光。
+        <br><br>
+        我喜欢和你聊天，
+        喜欢和你见面，
+        喜欢你笑起来的样子。
+        <br><br>
+        世界很大，
+        可我最想留在你身边。
+        <br><br>
+        这不是一时兴起。
+        <br>
+        是我认真想了很久以后，
+        依然坚定的答案。
+    </p>
+
+    <div class="big-love">
+        我永远爱你 ❤️
+    </div>
+
+</section>
+
+<div class="music-tip">
+    建议打开声音 ♪
+</div>
+
+<!-- 背景音乐 -->
+<audio autoplay loop>
+    <source src="music.mp3" type="audio/mp3">
+</audio>
+
+<script>
+
+/* 星空 */
+
+const stars = document.getElementById('stars');
+
+for(let i=0;i<180;i++){
+
+    const star = document.createElement('div');
+
+    star.classList.add('star');
+
+    star.style.left = Math.random()*100 + 'vw';
+    star.style.top = Math.random()*100 + 'vh';
+
+    star.style.animationDuration =
+        (Math.random()*3+2)+'s';
+
+    star.style.opacity = Math.random();
+
+    stars.appendChild(star);
+}
+
+/* 爱心雨 */
+
+function createHeart(){
+
+    const heart = document.createElement('div');
+
+    heart.classList.add('heart');
+
+    heart.innerHTML = '❤';
+
+    heart.style.left =
+        Math.random()*100 + 'vw';
+
+    heart.style.fontSize =
+        (Math.random()*20+10)+'px';
+
+    heart.style.animationDuration =
+        (Math.random()*4+4)+'s';
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },8000);
+}
+
+setInterval(createHeart,500);
+
+/* 恋爱计时器 */
+
+// 修改成你们认识的日期
+const startDate = new Date('2026-01-01 00:00:00');
+
+function updateLoveTime(){
+
+    const now = new Date();
+
+    const diff = now - startDate;
+
+    const days = Math.floor(diff / (1000*60*60*24));
+    const hours = Math.floor(diff / (1000*60*60)) % 24;
+    const minutes = Math.floor(diff / (1000*60)) % 60;
+    const seconds = Math.floor(diff / 1000) % 60;
+
+    document.getElementById('loveTime').innerHTML = `
+        <span class="highlight">${days}</span> 天
+        <span class="highlight">${hours}</span> 小时
+        <span class="highlight">${minutes}</span> 分钟
+        <span class="highlight">${seconds}</span> 秒
+    `;
+}
+
+setInterval(updateLoveTime,1000);
+updateLoveTime();
+
+</script>
+
+</body>
+</html>
