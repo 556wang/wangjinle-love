@@ -388,7 +388,7 @@ body{
 </div>
 
 <!-- 背景音乐 -->
-<audio autoplay loop>
+<audio id="bgMusic" loop>
     <source src="music.mp3" type="audio/mp3">
 </audio>
 
@@ -469,6 +469,21 @@ function updateLoveTime(){
 
 setInterval(updateLoveTime,1000);
 updateLoveTime();
+
+/* 背景音乐自动播放 */
+
+const bgMusic = document.getElementById('bgMusic');
+
+// 在用户第一次交互后自动播放音乐
+document.addEventListener('click', function playAudio() {
+    bgMusic.play().catch(err => console.log('音乐播放失败:', err));
+    document.removeEventListener('click', playAudio);
+}, { once: true });
+
+// 也尝试在页面加载完成后自动播放
+window.addEventListener('load', function() {
+    bgMusic.play().catch(err => console.log('自动播放被浏览器阻止'));
+});
 
 </script>
 
